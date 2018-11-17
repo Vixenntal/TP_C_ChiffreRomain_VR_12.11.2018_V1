@@ -1,0 +1,153 @@
+ALGORITHME chiffreRomain
+
+VAR
+	choix : ENTIER
+
+////////////////////////////////////////////////////////////////////////
+
+PROCEDURE romVarabe //Procedure convertir chiffre romain vers arabe
+VAR
+	chiffreRomain : CHAINE
+	chiffreArabe : ENTIER
+	cpt: ENTIER //compteur pour la boucle for
+	longeur : ENTIER //variable qui recupere la taille de la chaine cChiffreRomain
+
+DEBUT
+	cpt <- 0
+	longeur <- 0
+
+	ECRIRE ("Saisir un Chiffre Romain (I, V, X, L, C, D, M) :")
+	LIRE (chiffreRomain) //recupere l'entrée de l'utilisateur
+	longeur <- LONGEUR(chiffreRomain) //taille de la chaine entrée par l'utilisateur
+
+	POUR cpt ALLANT DE 0 A longeur AU PAS DE FAIRE //boucle for qui ecrit le chiffre arabe a partir du chiffre romain
+
+		SI (chiffreRomain[cpt] = 'M') ALORS //si la chaine contient un M faire + 1000 dans le nChiffreArabe
+			chiffreArabe <- chiffreArabe + 1000
+
+		SINON SI (chiffreRomain[cpt] = 'C') ET (chiffreRomain[cpt+1] = 'M') ALORS //si la chaine contient M précédé d'un C faire +900 dans nChiffreArabe
+			chiffreArabe <- chiffreArabe + 900
+
+		SINON SI (chiffreRomain[cpt] = 'D') ALORS
+			chiffreArabe <- chiffreArabe + 500
+
+		SINON SI (chiffreRomain[cpt] = 'C') ET (chiffreRomain[cpt+1] = 'D') ALORS
+			chiffreArabe <- chiffreArabe + 400
+
+		SINON SI (chiffreRomain[cpt] = 'C') ALORS
+			chiffreArabe <- chiffreArabe + 100
+
+		SINON SI (chiffreRomain[cpt] = 'X') ET (chiffreRomain[cpt+1] = 'C') ALORS
+			chiffreArabe <- chiffreArabe + 90
+
+		SINON SI (chiffreRomain[cpt] = 'L') ALORS
+			chiffreArabe <- chiffreArabe + 50
+
+		SINON SI (chiffreRomain[cpt] = 'X') ET (chiffreRomain[cpt+1] = 'L') ALORS
+			chiffreArabe <- chiffreArabe + 40
+
+		SINON SI (chiffreRomain[cpt] = 'X') ALORS
+			chiffreArabe <- chiffreArabe + 10
+
+		SINON SI (chiffreRomain[cpt] = 'I') ET (chiffreRomain[cpt+1] = 'X') ALORS
+			chiffreArabe <- chiffreArabe + 9
+
+		SINON SI (chiffreRomain[cpt] = 'V') ALORS
+			chiffreArabe <- chiffreArabe + 5
+
+		SINON SI (chiffreRomain[cpt] = 'I') ET (chiffreRomain[cpt+1] = 'V') ALORS
+			chiffreArabe <- chiffreArabe + 4
+
+		SINON SI (chiffreRomain[cpt] = 'I') ALORS
+			chiffreArabe <- chiffreArabe + 1
+		FINSI
+	FINPOUR
+	ECRIRE (chiffreArabe)
+FINPROCEDURE
+
+////////////////////////////////////////////////////////////////////////
+
+PROCEDURE arabeVrom //Procedure convertir chiffre arabe vers romain
+VAR
+	chiffreArabe : ENTIER
+	
+DEBUT
+	ECRIRE("Entrez un nombre arabe entre 1 et 3999 :")
+	LIRE(chiffreArabe)
+
+	TANT QUE (chiffreArabe > 0) FAIRE //boucle TANT QUE qui s'arrete lorsque que nChiffreArabe est inferieur a zero
+
+		SI (chiffreArabe >= 1000) //Si nChiffreArabe est superieur a 1000, entre dans le if
+			ECRIRE("M") //Ecrit un M
+			chiffreArabe <- chiffreArabe -1000 //soustrait 1000 a nChiffreArabe, recommence tant que nChiffreArabe est superieur a 1000
+
+		SINON SI (chiffreArabe >= 900)
+			ECRIRE("CM")
+			chiffreArabe <- chiffreArabe -900
+
+		SINON SI (chiffreArabe >= 500)
+			ECRIRE("D")
+			chiffreArabe <- chiffreArabe -500
+
+		SINON SI (chiffreArabe >= 400)
+			ECRIRE("CD")
+			chiffreArabe <- chiffreArabe -400
+
+		SINON SI (chiffreArabe >= 100)
+			ECRIRE("C")
+			chiffreArabe <- chiffreArabe -100
+
+		SINON SI (chiffreArabe >= 90)
+			ECRIRE("XC")
+			chiffreArabe <- chiffreArabe -90
+
+		SINON SI (chiffreArabe >= 50)
+			ECRIRE("L")
+			chiffreArabe <- chiffreArabe -50
+
+		SINON SI (chiffreArabe >= 40)
+			ECRIRE("XL")
+			chiffreArabe <- chiffreArabe -40
+
+		SINON SI (chiffreArabe >= 10)
+			ECRIRE("X")
+			chiffreArabe <- chiffreArabe -10
+
+		SINON SI (chiffreArabe >= 9)
+			ECRIRE("IX")
+			chiffreArabe <- chiffreArabe -9
+
+		SINON SI (chiffreArabe >= 5)
+			ECRIRE("V")
+			chiffreArabe <- chiffreArabe -5
+
+		SINON SI (chiffreArabe >= 4)
+			ECRIRE("IV")
+			chiffreArabe <- chiffreArabe -4
+
+		SINON
+			ECRIRE("I")
+			chiffreArabe <- chiffreArabe -1
+		FINSI
+
+	FINTANTQUE
+FINPROCEDURE
+
+//////////////////////////////////////////////////////////////////////
+
+DEBUT
+	
+    ECRIRE("1 : Romain vers Arabe")
+    ECRIRE("2 : Arabe vers Romain")
+    ECRIRE("3 : Quitter.")
+
+    ECRIRE("Faites votre choix")
+    LIRE("%d", &nChoix)
+
+    SI (choix = 1) //Choix de la procedure a lancer
+        romVarabe
+
+    SINON SI (choix = 2)
+        arabeVrom
+
+FIN
